@@ -2,6 +2,8 @@
 // Javaデータアクセスの基礎 サンプルコード(1)
 // EMP表への問合せを実行するJavaアプリケーション
 // JDBC APIをインポート
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -21,7 +23,10 @@ class JavaDataAccess {
 
 		try {
 			// ファイル名取得
-			FileOutputStream fo = new FileOutputStream("C:\\Downloads\\Senya.csv");
+			String strDirName = "C:\\Downloads\\";
+			String strFileName = strDirName + "Senya.csv";
+			FileOutputStream fo = new FileOutputStream(strFileName);
+//			FileOutputStream fo = new FileOutputStream("C:\\Downloads\\Senya.csv");
 
 			// http://java-reference.sakuraweb.com/java_file_csv_write.html
 			// CSVファイル出力サンプル
@@ -67,12 +72,17 @@ class JavaDataAccess {
 			 //終了メッセージを画面に出力する
             System.out.println("CSV出力が完了しました。");
 
+            // エクスプローラーを開く
+            //https://jablogs.com/detail/105489
+            Desktop.getDesktop().open(new File(strDirName));
+
             // 結果セットをクローズ
 			rs.close();
 			// ステートメントをクローズ
 			stmt.close();
 			// 接続をクローズ
 			conn.close();
+
 		} catch (IOException ex) {
 			// 例外時処理
 			ex.printStackTrace();
